@@ -1,0 +1,40 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.2rem 2rem;
+  min-height: 2.8rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: inherit !important;
+    border-color: transparent !important;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+  }
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.App {
+  overscroll-behavior-y: none;
+  position: fixed;
+  width: 100%;
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 8vw;
+  margin: 0;
+}
+
+.btn__scale {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+  }
+}
