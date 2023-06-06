@@ -17,17 +17,4 @@
   .content__text {
     color: var(--color--white);
   }
-
-  .content__btn {
-    margin-top: 2rem !important;
-    background: linear-gradient(to top right, #fd267a, #ff6036);
-    color: var(--color--white);
-    border-color: transparent;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    outline: none;
-    transition: all 0.3s ease;
-    &:hover {
-      color: var(--color--white) !important;
-    }
-  }
 }
