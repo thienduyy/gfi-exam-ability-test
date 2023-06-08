@@ -1,15 +1,40 @@
 import LogoTinder from "../../assets/svgs/Logo";
 import "../../scss/ModalLogin.scss";
-import { Button, Checkbox, Col, Form, Input, Row } from "antd";
+import { Button, Checkbox, Col, Form, Input, message, Row } from "antd";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const SignIn = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  const { dispatch } = useContext(AuthContext);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    const { username: email, password } = values;
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        if (userCredential) {
+          const user = userCredential.user;
+          dispatch({ type: "LOGIN", payload: user });
+          navigate("/app");
+        }
+      })
+      .catch((err) => {
+        message.open({
+          type: "error",
+          content: "Login Fail!",
+        });
+      });
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    message.open({
+      type: "error",
+      content: "Login Fail!",
+    });
   };
 
   // validate new password

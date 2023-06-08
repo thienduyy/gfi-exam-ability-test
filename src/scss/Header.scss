@@ -16,4 +16,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap;
+  position: fixed;
+  width: calc(100% - 60px);
+  top: 0;
+}
+
+.header_btn {
+  border: none;
+  padding: 0.2rem 1rem;
 }

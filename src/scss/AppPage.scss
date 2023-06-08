@@ -1,0 +1,96 @@
+.app__wrapper {
+  height: calc(100% - 15vh);
+}
+.header__logo {
+  height: 40px;
+  object-fit: contain;
+}
+
+.card__wrapper {
+  width: 100%;
+  height: calc(100%);
+  // padding-top: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15vh;
+}
+
+.card_container {
+  position: relative;
+  width: 600px;
+  padding: 20px;
+  max-width: 85vw;
+  height: 50vh;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0px 18px 53px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card_container h3 {
+  position: absolute;
+  bottom: 10px;
+  color: white;
+}
+
+/* stacks cards on top of each other */
+.card__swipe {
+  position: absolute;
+}
+
+.swipeButtons {
+  position: fixed;
+  bottom: 10vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+
+  button {
+    outline: none;
+    border: none;
+  }
+}
+
+.swipeButtons button {
+  background-color: white;
+  border-radius: 100px;
+  box-shadow: 0px 10px 53px 0px rgba(0, 0, 0, 0.3) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 33px 20px;
+  transition: all 0.3s ease;
+  &:hover {
+    svg {
+      transition: all 0.3s ease;
+      transform: scale(1.2);
+    }
+  }
+}
+
+.swipeButtons__repeat {
+  // padding: 1vw !important;
+  fill: #f5b748 !important;
+}
+
+.swipeButtons__left {
+  // padding: 3vw !important;
+  fill: #ec5e6f !important;
+}
+
+.swipeButtons__star {
+  // padding: 3vw !important;
+  fill: #62b4f9 !important;
+}
+
+.swipeButtons__right {
+  // padding: 3vw !important;
+  fill: #76e2b3 !important;
+}
+
+.swipeButtons__lightning {
+  // padding: 3vw !important;
+  fill: #915dd1 !important;
+}

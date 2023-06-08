@@ -1,14 +1,33 @@
 import LogoTinder from "../../assets/svgs/Logo";
 import "../../scss/ModalLogin.scss";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, message, Row } from "antd";
+import { createUserWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../../firebase";
 
 const SignUp = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    const { username: email, password } = values;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        message.open({
+          type: "success",
+          content: "Create Account Success!",
+        });
+      })
+      .catch((err) => {
+        message.open({
+          type: "error",
+          content: "Create Account Fail!",
+        });
+      });
   };
   const onFinishFailed = (errorInfo) => {
+    message.open({
+      type: "error",
+      content: "Create Account Fail!",
+    });
     console.log("Failed:", errorInfo);
   };
 
