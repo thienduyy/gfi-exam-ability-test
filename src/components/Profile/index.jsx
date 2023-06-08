@@ -34,7 +34,6 @@ const Profile = ({ visible, setVisible }) => {
   const [file, setFile] = useState("");
   const [profile, setProfile] = useState();
   const [form] = Form.useForm();
-
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -52,14 +51,16 @@ const Profile = ({ visible, setVisible }) => {
     return () => {
       fetchData();
     };
-  }, []);
+  }, [currentUser.email]);
 
   useEffect(() => {
+    console.log("profile useEffect:", profile);
     if (profile) {
       openUpdate(profile);
       return;
     }
     openCreate();
+    // eslint-disable-next-line
   }, [profile]);
 
   const openCreate = () => {
