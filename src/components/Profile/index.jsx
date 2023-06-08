@@ -42,7 +42,13 @@ const Profile = ({ visible, setVisible }) => {
         const querySnapshot = await getDoc(
           doc(database, "people", currentUser.email)
         );
-        setProfile(querySnapshot.data());
+        setProfile(querySnapshot?.data());
+        console.log("querySnapshot?.data():", querySnapshot?.data());
+        if (querySnapshot.data()) {
+          openUpdate(querySnapshot.data());
+        } else {
+          openCreate();
+        }
       } catch (err) {
         console.log(err);
       }
@@ -53,15 +59,15 @@ const Profile = ({ visible, setVisible }) => {
     };
   }, [currentUser.email]);
 
-  useEffect(() => {
-    console.log("profile useEffect:", profile);
-    if (profile) {
-      openUpdate(profile);
-      return;
-    }
-    openCreate();
-    // eslint-disable-next-line
-  }, [profile]);
+  // useEffect(() => {
+  //   console.log("profile useEffect:", profile);
+  //   if (profile) {
+  //     openUpdate(profile);
+  //     return;
+  //   }
+  //   openCreate();
+  //   // eslint-disable-next-line
+  // }, [currentUser.email, profile]);
 
   const openCreate = () => {
     setProfile(undefined);
