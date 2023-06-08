@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import "../../scss/Profile.scss";
 import {
   Button,
@@ -12,7 +12,7 @@ import {
   Row,
 } from "antd";
 import { database, storage } from "../../firebase";
-import { doc, setDoc, Timestamp, updateDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp, updateDoc, getDoc, onSnapshot } from "firebase/firestore";
 import {
   ref,
   uploadBytesResumable,
@@ -36,39 +36,6 @@ const Profile = ({ visible, setVisible }) => {
   const [form] = Form.useForm();
   const { currentUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDoc(
-          doc(database, "people", currentUser.email)
-        );
-        setProfile(querySnapshot?.data());
-        console.log("querySnapshot?.data():", querySnapshot?.data());
-        if (querySnapshot.data()) {
-          openUpdate(querySnapshot.data());
-        } else {
-          openCreate();
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    return () => {
-      fetchData();
-    };
-  }, [currentUser.email]);
-
-  // useEffect(() => {
-  //   console.log("profile useEffect:", profile);
-  //   if (profile) {
-  //     openUpdate(profile);
-  //     return;
-  //   }
-  //   openCreate();
-  //   // eslint-disable-next-line
-  // }, [currentUser.email, profile]);
-
   const openCreate = () => {
     setProfile(undefined);
     form.resetFields();
@@ -89,6 +56,57 @@ const Profile = ({ visible, setVisible }) => {
     });
     setImageUrl(profile.image);
   };
+
+  const listenProfile = useCallback(async () => {
+    const unsubscribe = onSnapshot(
+      doc(database, "people", currentUser.email),
+      (doc) => {
+        console.log("doc data", doc.data());
+        setProfile(doc.data());
+      }
+    );
+
+    return unsubscribe;
+  }, [currentUser.email]);
+
+  useEffect(() => {
+    listenProfile();
+    return () => {
+      listenProfile();
+    };
+  }, [listenProfile]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const querySnapshot = await getDoc(
+  //         doc(database, "people", currentUser.email)
+  //       );
+  //       setProfile(querySnapshot?.data());
+  //       console.log("querySnapshot?.data():", querySnapshot.data());
+  //       if (querySnapshot.data()) {
+  //         openUpdate(querySnapshot.data());
+  //       } else {
+  //         openCreate();
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
+  //   return () => {
+  //     fetchData();
+  //   };
+  // }, [currentUser.email]);
+
+  useEffect(() => {
+    console.log("profile useEffect:", profile);
+    if (profile) {
+      openUpdate(profile);
+      return;
+    }
+    openCreate();
+    // eslint-disable-next-line
+  }, [currentUser.email, profile]);
 
   const onFinish = async (values) => {
     if (profile) {
@@ -278,7 +296,9 @@ const Profile = ({ visible, setVisible }) => {
 
   const hideModal = () => {
     setVisible(false);
-    openUpdate(profile);
+    if (profile) {
+      openUpdate(profile);
+    }
   };
 
   return (
