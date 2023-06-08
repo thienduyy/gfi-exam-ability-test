@@ -61,7 +61,6 @@ const Profile = ({ visible, setVisible }) => {
     const unsubscribe = onSnapshot(
       doc(database, "people", currentUser.email),
       (doc) => {
-        console.log("doc data", doc.data());
         setProfile(doc.data());
       }
     );
@@ -99,7 +98,6 @@ const Profile = ({ visible, setVisible }) => {
   // }, [currentUser.email]);
 
   useEffect(() => {
-    console.log("profile useEffect:", profile);
     if (profile) {
       openUpdate(profile);
       return;
