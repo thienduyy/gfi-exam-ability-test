@@ -69,7 +69,6 @@ const Profile = ({ visible, setVisible }) => {
       doc(database, "people", currentUser.email),
       (doc) => {
         if (!doc.data()) {
-          console.log("doc.data()", doc.data());
           setVisible(true);
         } else {
           setProfile(doc.data());
@@ -78,6 +77,7 @@ const Profile = ({ visible, setVisible }) => {
     );
 
     return unsubscribe;
+    // eslint-disable-next-line
   }, [currentUser.email]);
 
   useEffect(() => {

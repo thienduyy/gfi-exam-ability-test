@@ -5,8 +5,6 @@ import Card from "./Card";
 import { AuthContext } from "../../context/AuthContext";
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   onSnapshot,
   query,
@@ -20,25 +18,6 @@ const AppComponent = () => {
   const [people, setPeople] = useState();
   const { currentUser } = useContext(AuthContext);
   const [visible, setVisible] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const querySnapshot = await getDoc(
-  //         doc(database, "people", currentUser.email)
-  //       );
-  //       if (!querySnapshot?.data()) {
-  //         setVisible(true);
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   return () => {
-  //     fetchData();
-  //   };
-  // }, [currentUser.email]);
 
   const listenData = useCallback(async () => {
     const userNotDisplay = [currentUser.email];
@@ -89,6 +68,7 @@ const AppComponent = () => {
     );
 
     return unsubscribe;
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -106,7 +86,7 @@ const AppComponent = () => {
       {people && people.length && currentUser ? (
         <Card people={people} currentUser={currentUser} />
       ) : (
-        <img className="app_wait" src={Wait} />
+        <img className="app_wait" src={Wait} alt="Img_waiting"/>
       )}
       <Profile visible={visible} setVisible={setVisible} />
     </div>
