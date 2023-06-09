@@ -68,7 +68,8 @@ const Profile = ({ visible, setVisible }) => {
     const unsubscribe = onSnapshot(
       doc(database, "people", currentUser.email),
       (doc) => {
-        if (doc.data()) {
+        if (!doc.data()) {
+          console.log("doc.data()", doc.data());
           setVisible(true);
         } else {
           setProfile(doc.data());
