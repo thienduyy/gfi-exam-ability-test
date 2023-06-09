@@ -21,24 +21,24 @@ const AppComponent = () => {
   const { currentUser } = useContext(AuthContext);
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDoc(
-          doc(database, "people", currentUser.email)
-        );
-        if (!querySnapshot?.data()) {
-          setVisible(true);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const querySnapshot = await getDoc(
+  //         doc(database, "people", currentUser.email)
+  //       );
+  //       if (!querySnapshot?.data()) {
+  //         setVisible(true);
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
-    return () => {
-      fetchData();
-    };
-  }, [currentUser.email]);
+  //   return () => {
+  //     fetchData();
+  //   };
+  // }, [currentUser.email]);
 
   const listenData = useCallback(async () => {
     const userNotDisplay = [currentUser.email];
