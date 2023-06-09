@@ -13,12 +13,10 @@ import {
   where,
 } from "firebase/firestore";
 import { database } from "../../firebase";
-import { useNavigate } from "react-router-dom";
 import Wait from "../../assets/wait.png";
 import Profile from "../Profile";
 
 const AppComponent = () => {
-  const navigate = useNavigate();
   const [people, setPeople] = useState();
   const { currentUser } = useContext(AuthContext);
   const [visible, setVisible] = useState(false);
@@ -29,7 +27,7 @@ const AppComponent = () => {
         const querySnapshot = await getDoc(
           doc(database, "people", currentUser.email)
         );
-        if (querySnapshot && !querySnapshot.data()) {
+        if (!querySnapshot?.data()) {
           setVisible(true);
         }
       } catch (err) {
@@ -40,7 +38,7 @@ const AppComponent = () => {
     return () => {
       fetchData();
     };
-  }, []);
+  }, [currentUser.email]);
 
   const listenData = useCallback(async () => {
     const userNotDisplay = [currentUser.email];

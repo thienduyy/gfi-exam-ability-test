@@ -64,10 +64,10 @@ const SignIn = () => {
       >
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Please input your email!" }]}
         >
           <Col>
-            <h3 className="signin__form--label">Username</h3>
+            <h3 className="signin__form--label">Email</h3>
             <Input className="input signin__input--black" />
           </Col>
         </Form.Item>

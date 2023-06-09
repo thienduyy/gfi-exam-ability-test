@@ -12,7 +12,14 @@ import {
   Row,
 } from "antd";
 import { database, storage } from "../../firebase";
-import { doc, setDoc, Timestamp, updateDoc, getDoc, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  Timestamp,
+  updateDoc,
+  getDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import {
   ref,
   uploadBytesResumable,
@@ -74,28 +81,6 @@ const Profile = ({ visible, setVisible }) => {
       listenProfile();
     };
   }, [listenProfile]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const querySnapshot = await getDoc(
-  //         doc(database, "people", currentUser.email)
-  //       );
-  //       setProfile(querySnapshot?.data());
-  //       console.log("querySnapshot?.data():", querySnapshot.data());
-  //       if (querySnapshot.data()) {
-  //         openUpdate(querySnapshot.data());
-  //       } else {
-  //         openCreate();
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   return () => {
-  //     fetchData();
-  //   };
-  // }, [currentUser.email]);
 
   useEffect(() => {
     if (profile) {
@@ -295,8 +280,15 @@ const Profile = ({ visible, setVisible }) => {
   };
 
   const hideModal = () => {
-    setVisible(false);
+    if (!profile) {
+      message.open({
+        type: "warning",
+        content: "Please Register Profile !",
+      });
+      return;
+    }
     if (profile) {
+      setVisible(false);
       openUpdate(profile);
     }
   };

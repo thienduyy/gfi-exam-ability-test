@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Modal } from "antd";
+import { Button } from "antd";
 import SignUp from "../Modal/SignUp";
 
 const Content = () => {
@@ -15,15 +15,8 @@ const Content = () => {
       >
         Create Account
       </Button>
-      <Modal
-        className="modal-black"
-        destroyOnClose={true}
-        open={visible}
-        footer={false}
-        onCancel={() => setVisible(false)}
-      >
-        <SignUp />
-      </Modal>
+
+      <SignUp visible={visible} setVisible={setVisible} />
     </div>
   );
 };
