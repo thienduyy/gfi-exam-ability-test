@@ -14,12 +14,14 @@ import {
 } from "firebase/firestore";
 import { database } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import Loading from "../Loading";
+import Wait from "../../assets/wait.png";
+import Profile from "../Profile";
 
 const AppComponent = () => {
   const navigate = useNavigate();
   const [people, setPeople] = useState();
   const { currentUser } = useContext(AuthContext);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +30,7 @@ const AppComponent = () => {
           doc(database, "people", currentUser.email)
         );
         if (querySnapshot && !querySnapshot.data()) {
-          navigate("/profile");
+          setVisible(true);
         }
       } catch (err) {
         console.log(err);
@@ -106,8 +108,9 @@ const AppComponent = () => {
       {people && people.length && currentUser ? (
         <Card people={people} currentUser={currentUser} />
       ) : (
-        <Loading />
+        <img className="app_wait" src={Wait} />
       )}
+      <Profile visible={visible} setVisible={setVisible} />
     </div>
   );
 };

@@ -1,9 +1,20 @@
 .app__wrapper {
   height: calc(100% - 15vh);
+  display: flex;
+  align-items: center;
 }
 .header__logo {
   height: 40px;
   object-fit: contain;
+}
+
+.app_wait {
+  width: 600px;
+  height: 50vh;
+  border-radius: 20px;
+  box-shadow: 0px 18px 53px 0px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin: 0 auto;
 }
 
 .card__wrapper {
@@ -93,4 +104,8 @@
 .swipeButtons__lightning {
   // padding: 3vw !important;
   fill: #915dd1 !important;
+}
+
+.app__empty {
+  margin: 200px;
 }

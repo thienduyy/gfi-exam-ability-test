@@ -16,7 +16,7 @@ import FavoriteIcon from "../../assets/svgs/FavoriteIcon";
 import FlashOnIcon from "../../assets/svgs/FlashOnIcon";
 import ReplayIcon from "../../assets/svgs/ReplayIcon";
 import StarRateIcon from "../../assets/svgs/StarRateIcon";
-
+import Wait from "../../assets/wait.png";
 const Card = ({ people, currentUser }) => {
   const [currentIndex, setCurrentIndex] = useState(
     people && Number(people?.length) - 1
@@ -142,6 +142,9 @@ const Card = ({ people, currentUser }) => {
               </div>
             </TinderCard>
           ))}
+        {!canSwipe && (
+          <img className="card_container" src={Wait} alt="waiting" />
+        )}
       </div>
       <div className="swipeButtons">
         <Button className="swipeButtons__repeat">

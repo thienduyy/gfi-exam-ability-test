@@ -69,7 +69,7 @@ const SignUp = () => {
         <Form.Item
           name="username"
           rules={[
-            { required: true, message: "Please input your username!" },
+            { required: true, message: "Please input your email!" },
             {
               pattern: /^[A-Za-z0-9@.]+$/,
               message: "Only letters and numbers or email!",
@@ -78,7 +78,7 @@ const SignUp = () => {
         >
           <Col span={24}>
             <h3 className="signin__form--label">Username</h3>
-            <Input className="input signin__input--black" />
+            <Input type="email" className="input signin__input--black" />
           </Col>
         </Form.Item>
 

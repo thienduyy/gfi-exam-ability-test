@@ -100,6 +100,7 @@ const Profile = ({ visible, setVisible }) => {
         type: "success",
         content: "Create Profile Success !",
       });
+      hideModal();
     } catch (error) {
       message.open({
         type: "error",
@@ -117,6 +118,7 @@ const Profile = ({ visible, setVisible }) => {
         type: "success",
         content: "Edit Profile Success !",
       });
+      hideModal();
     } catch (error) {
       message.open({
         type: "error",
@@ -271,7 +273,9 @@ const Profile = ({ visible, setVisible }) => {
 
   const hideModal = () => {
     setVisible(false);
-    openUpdate(profile);
+    if (profile) {
+      openUpdate(profile);
+    }
   };
 
   return (
@@ -296,83 +300,105 @@ const Profile = ({ visible, setVisible }) => {
             className="profile__form"
             // initialValues={{ email: currentUser.email }}
           >
-            <Row className="w-100" gutter={[48, 16]}>
-              <Col
-                xs={12}
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Form.Item
-                  name="email"
-                  label="Email"
-                  rules={[
-                    { required: true, message: "Please input your name!" },
-                  ]}
-                  // initialValue={currentUser && currentUser.email}
-                >
-                  <Input className="input profile__input--black" disabled />
-                </Form.Item>
-                <Form.Item
-                  name="name"
-                  label="Name"
-                  rules={[
-                    { required: true, message: "Please input your name!" },
-                  ]}
-                >
-                  <Input className="input profile__input--black" />
-                </Form.Item>
-                <Form.Item
-                  name="birthday"
-                  label="Birthday"
-                  rules={[
-                    { required: true, message: "Please input your birthday!" },
-                  ]}
-                >
-                  <DatePicker
-                    className="input profile__input--black"
-                    placeholder="YYYY-MM-DD"
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="phone"
-                  label="Phone number"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your phone number!",
-                    },
-                  ]}
-                >
-                  <Input className="input profile__input--black" />
-                </Form.Item>
-                <Form.Item
-                  name="address"
-                  label="Address"
-                  rules={[
-                    { required: true, message: "Please input your address!" },
-                  ]}
-                >
-                  <Input className="input profile__input--black" />
-                </Form.Item>
-                <Form.Item
-                  name="gender"
-                  label="Gender"
-                  rules={[
-                    { required: true, message: "Please input your gender!" },
-                  ]}
-                >
-                  <Radio.Group
-                    options={options}
-                    optionType="button"
-                    className="profile__radio"
-                  />
-                </Form.Item>
+            <Row className="w-100" gutter={[16, 0]}>
+              <Col xs={24} sm={12}>
+                <Row>
+                  <Col span={24}>
+                    <Form.Item
+                      name="email"
+                      label="Email"
+                      rules={[
+                        { required: true, message: "Please input your name!" },
+                      ]}
+                      // initialValue={currentUser && currentUser.email}
+                    >
+                      <Input
+                        className="input profile__input--black w-100"
+                        disabled
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={24}>
+                    <Form.Item
+                      name="name"
+                      label="Name"
+                      rules={[
+                        { required: true, message: "Please input your name!" },
+                      ]}
+                    >
+                      <Input className="input profile__input--black w-100" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={24}>
+                    <Form.Item
+                      name="birthday"
+                      label="Birthday"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your birthday!",
+                        },
+                      ]}
+                    >
+                      <DatePicker
+                        className="input profile__input--black w-100"
+                        placeholder="YYYY-MM-DD"
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={24}>
+                    <Form.Item
+                      name="phone"
+                      label="Phone number"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your phone number!",
+                        },
+                        {
+                          pattern: /^\d+$/,
+                          message: "Only numbers!",
+                        },
+                      ]}
+                    >
+                      <Input className="input profile__input--black w-100" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={24}>
+                    <Form.Item
+                      name="address"
+                      label="Address"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your address!",
+                        },
+                      ]}
+                    >
+                      <Input className="input profile__input--black w-100" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={24}>
+                    <Form.Item
+                      name="gender"
+                      label="Gender"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your gender!",
+                        },
+                      ]}
+                    >
+                      <Radio.Group
+                        options={options}
+                        optionType="button"
+                        className="profile__radio w-100"
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Col>
-              <Col xs={12}>
+              <Col xs={24} sm={12}>
                 {/* <h3>Image Profile</h3> */}
                 <Form.Item
                   name="image"
@@ -381,7 +407,7 @@ const Profile = ({ visible, setVisible }) => {
                     { required: true, message: "Please input your Image!" },
                   ]}
                 >
-                  <div className="profile__image">
+                  <div className="profile__image w-100">
                     <input
                       type="file"
                       id="file"
@@ -389,6 +415,7 @@ const Profile = ({ visible, setVisible }) => {
                     />
                     {imageUrl && imageUrl.downloadURL ? (
                       <img
+                        className="w-100 mt-8"
                         src={
                           imageUrl?.downloadURL ||
                           "https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg"
