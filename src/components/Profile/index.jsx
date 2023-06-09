@@ -113,7 +113,7 @@ const Profile = ({ visible, setVisible }) => {
         type: "success",
         content: "Create Profile Success !",
       });
-      hideModal();
+      setVisible(true);
     } catch (error) {
       message.open({
         type: "error",
